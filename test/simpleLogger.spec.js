@@ -1,10 +1,16 @@
 const assert = require('assert');
 const chalk = require('chalk');
-const logger = require('..');
 
-describe('Simple', () => {
+describe('Simple logger', () => {
 	const write = process.stdout.write;
 	let output;
+	let logger;
+
+	before(() => {
+		delete require.cache[require.resolve('../src')];
+		delete process.env.LOG_FORMAT; // do not specify a log format
+		logger = require('../src');
+	});
 
 	beforeEach(() => {
 		output = '';
