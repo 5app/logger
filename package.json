@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "semantic-release": "semantic-release",
-    "test": "mocha"
+    "test": "mocha",
+    "test:json": "mocha --reporter json"
   },
   "repository": {
     "type": "git",

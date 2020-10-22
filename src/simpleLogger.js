@@ -18,14 +18,15 @@ const formatting = {
 	},
 };
 
-function log(level, message, context = '') {
+function log(level, message, context = '', errorObject) {
 	const {color, colorAll} = formatting[level];
+	const contextObjects = [context, errorObject].filter(Boolean); // Ignore undefined context objects
 
 	if (colorAll) {
-		console.log(color(util.format(`${level}: ${message}`, context))); // eslint-disable-line no-console
+		console.log(color(util.format(`${level}: ${message}`, ...contextObjects))); // eslint-disable-line no-console
 	}
 	else {
-		console.log(`${color(`${level}:`)} ${message}`, context); // eslint-disable-line no-console
+		console.log(`${color(`${level}:`)} ${message}`, ...contextObjects); // eslint-disable-line no-console
 	}
 }
 

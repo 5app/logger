@@ -23,7 +23,7 @@ describe('Simple logger', () => {
 		process.stdout.write = write;
 	});
 
-	it('should log messages to the standard output', () => {
+	it('logs messages to the standard output', () => {
 		const testMessage = 'simple message';
 
 		logger.info(testMessage);

@@ -14,11 +14,14 @@ function formatError(data) {
 	return data;
 }
 
-function log(level, message, context = {}) {
+function log(level, message, context = {}, errorObject) {
 	let contextObject = context;
 
-	if (level === [ERROR]) {
-		contextObject = formatError(context);
+	if (level === ERROR) {
+		contextObject = {
+			...formatError(context),
+			...formatError(errorObject),
+		};
 	}
 
 	const payload = JSON.stringify({

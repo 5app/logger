@@ -32,7 +32,7 @@ describe('JSON logger', () => {
 		process.stdout.write = write;
 	});
 
-	it('should log 1-line json messages to the standard output', () => {
+	it('logs 1-line json messages to the standard output', () => {
 		const testMessage = 'simple message';
 
 		logger.info(testMessage);
@@ -43,5 +43,26 @@ describe('JSON logger', () => {
 			tag: TAG,
 			timestamp: now.toISOString(),
 		}));
+	});
+
+	it('provides the details of the error and its context ', () => {
+		const humanReadableErrorMessage = 'Unknown user';
+		const originalErrorMessage = 'user not found';
+		const error = new Error(originalErrorMessage);
+		error.statusCode = 404;
+		const context = {id: 1, host: 'example.com'};
+
+		logger.error(humanReadableErrorMessage, context, error);
+
+		sinon.assert.match(JSON.parse(output.trim()), {
+			level: 'error',
+			message: humanReadableErrorMessage,
+			tag: TAG,
+			timestamp: now.toISOString(),
+			...context,
+			error: originalErrorMessage,
+			statusCode: 404,
+			stacktrace: sinon.match.array,
+		});
 	});
 });
