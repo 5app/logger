@@ -14,7 +14,7 @@ function formatError(data) {
 	return data;
 }
 
-function log(level, message, context = {}, errorObject) {
+function log(level, message, context = {}, errorObject, fetchContext) {
 	let contextObject = context;
 
 	if (level === ERROR) {
@@ -24,12 +24,15 @@ function log(level, message, context = {}, errorObject) {
 		};
 	}
 
+	const dynamicContext = typeof fetchContext === 'function' ? fetchContext() : undefined;
+
 	const payload = JSON.stringify({
 		level,
 		message,
 		tag: TAG,
 		timestamp: new Date().toISOString(),
-		...contextObject
+		...dynamicContext,
+		...contextObject,
 	});
 
 	console.log(payload); // eslint-disable-line no-console

@@ -37,7 +37,7 @@ describe('JSON logger', () => {
 
 		logger.info(testMessage);
 
-		assert.equal(output.trim(), JSON.stringify({
+		assert.strictEqual(output.trim(), JSON.stringify({
 			level: 'info',
 			message: testMessage,
 			tag: TAG,
@@ -45,7 +45,7 @@ describe('JSON logger', () => {
 		}));
 	});
 
-	it('provides the details of the error and its context ', () => {
+	it('provides the details of the error and its context', () => {
 		const humanReadableErrorMessage = 'Unknown user';
 		const originalErrorMessage = 'user not found';
 		const error = new Error(originalErrorMessage);
@@ -59,6 +59,32 @@ describe('JSON logger', () => {
 			message: humanReadableErrorMessage,
 			tag: TAG,
 			timestamp: now.toISOString(),
+			...context,
+			error: originalErrorMessage,
+			statusCode: 404,
+			stacktrace: sinon.match.array,
+		});
+	});
+
+	it('supports fetching context dynamically', () => {
+		const humanReadableErrorMessage = 'Unknown user';
+		const originalErrorMessage = 'user not found';
+		const error = new Error(originalErrorMessage);
+		error.statusCode = 404;
+		const context = {id: 1, host: 'example.com'};
+
+		logger.addContext(() => ({
+			correlationId: 12345,
+		}));
+
+		logger.error(humanReadableErrorMessage, context, error);
+
+		sinon.assert.match(JSON.parse(output.trim()), {
+			level: 'error',
+			message: humanReadableErrorMessage,
+			tag: TAG,
+			timestamp: now.toISOString(),
+			correlationId: 12345,
 			...context,
 			error: originalErrorMessage,
 			statusCode: 404,

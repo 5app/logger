@@ -13,13 +13,18 @@ const levels = {
 	[DEBUG]: 1,
 };
 
+let fetchContext;
+function addContext(contextFetchingFunction) {
+	fetchContext = contextFetchingFunction;
+}
+
 const logger = enableJsonLogs ? jsonLogger : simpleLogger;
 const noLog = () => {}; // eslint-disable-line no-empty-function
 
 function logWithLevel(level) {
 	const shouldLog = levels[level] >= levels[minimumLogLevel];
 
-	return (...parameters) => (shouldLog ? logger(level, ...parameters) : noLog);
+	return (...parameters) => (shouldLog ? logger(level, ...parameters, fetchContext) : noLog);
 }
 
 module.exports = {
@@ -27,4 +32,5 @@ module.exports = {
 	[INFO]: logWithLevel(INFO),
 	[WARN]: logWithLevel(WARN),
 	[ERROR]: logWithLevel(ERROR),
+	addContext,
 };
