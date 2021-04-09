@@ -30,7 +30,7 @@
     "@semantic-release/git": "^9.0.0",
     "eslint": "^7.20.0",
     "eslint-config-5app": "^0.14.2",
-    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-promise": "^5.0.0",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
