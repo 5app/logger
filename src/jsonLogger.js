@@ -6,7 +6,7 @@ function formatError(data) {
 	if (data instanceof Error) {
 		return {
 			error: data.message,
-			stacktrace: data.stack ? data.stack.split('\n').slice(1, 3).map(line => line.trim()) : undefined,
+			stacktrace: data.stack ? data.stack.split('\n').map(line => line.trim()) : undefined,
 			statusCode: data.statusCode
 		};
 	}
