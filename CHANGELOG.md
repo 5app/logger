@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/5app/logger/compare/v2.2.0...v2.3.0) (2022-02-07)
+
+
+### Features
+
+* **stacktrace:** Show entire stacktrace ([#67](https://github.com/5app/logger/issues/67)) ([11564b2](https://github.com/5app/logger/commit/11564b2e69c07a92215893daae4cfbce330b8c29))
+
 # [2.2.0](https://github.com/5app/logger/compare/v2.1.0...v2.2.0) (2021-02-23)
 
 

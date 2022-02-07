@@ -1,6 +1,6 @@
 {
   "name": "@5app/logger",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Simple logger used in 5app microservices",
   "main": "src/index.js",
   "scripts": {
