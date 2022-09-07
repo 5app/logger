@@ -8,6 +8,9 @@
     "test": "mocha",
     "test:json": "mocha --reporter json"
   },
+  "files": [
+    "src/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/5app/logger.git"
