@@ -1,3 +1,15 @@
+## [2.3.1](https://github.com/5app/logger/compare/v2.3.0...v2.3.1) (2022-09-15)
+
+
+### Bug Fixes
+
+* **package:** add to github registry ([c1fcde8](https://github.com/5app/logger/commit/c1fcde8242ddd8819819527873f8d5c037ecbfd8))
+
+
+### Performance Improvements
+
+* **packages:** only bundle up whats needed ([6814e4b](https://github.com/5app/logger/commit/6814e4be646fa4df78588f70a7c41d197c596d68))
+
 # [2.3.0](https://github.com/5app/logger/compare/v2.2.0...v2.3.0) (2022-02-07)
 
 
