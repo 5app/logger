@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
-  node: circleci/node@5.0.2
+    node: circleci/node@5.0.2
+    release: fiveapp/release@0.0.3
 
 executors:
     default:
@@ -18,18 +18,13 @@ jobs:
             - run: npm run lint
             - run: npm run test:json
 
-    release:
-        executor: default
-        steps:
-            - checkout
-            - node/install-packages
-            - run: npx semantic-release
-
 workflows:
     build:
         jobs:
             - test
-            - release:
-                  context: org-global
-                  requires:
-                      - test
+            - release/npm_and_github:
+                context:
+                    - org-global
+                    - github-release
+                requires:
+                    - test
