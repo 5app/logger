@@ -30,7 +30,7 @@
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "eslint": "^8.8.0",
-    "eslint-config-5app": "^0.16.2",
+    "eslint-config-5app": "^0.19.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^8.0.0",
