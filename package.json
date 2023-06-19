@@ -67,7 +67,7 @@
     "extends": "@5app/semantic-release-config"
   },
   "dependencies": {
-    "chalk": "^4.1.2"
+    "chalk": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"
