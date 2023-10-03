@@ -27,18 +27,18 @@
   },
   "homepage": "https://github.com/5app/logger#readme",
   "devDependencies": {
-    "@5app/semantic-release-config": "^1.0.0",
-    "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
-    "eslint": "^8.8.0",
-    "eslint-config-5app": "^0.16.2",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-security": "^1.4.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.0",
-    "mocha": "^10.0.0",
-    "semantic-release": "^19.0.2",
-    "sinon": "^14.0.0"
+    "@5app/semantic-release-config": "^1.1.0",
+    "@commitlint/cli": "^17.7.2",
+    "@commitlint/config-conventional": "^17.7.0",
+    "eslint": "^8.50.0",
+    "eslint-config-5app": "^0.19.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-security": "^1.7.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "mocha": "^10.2.0",
+    "semantic-release": "^22.0.5",
+    "sinon": "^16.0.0"
   },
   "lint-staged": {
     "*.js": "eslint"
@@ -68,7 +68,7 @@
     "extends": "@5app/semantic-release-config"
   },
   "dependencies": {
-    "chalk": "^4.1.2"
+    "chalk": "^5.3.0"
   },
   "publishConfig": {
     "access": "public"
