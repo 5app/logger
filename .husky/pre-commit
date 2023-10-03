@@ -1,0 +1,2 @@
+# Pre commit
+npx lint-staged
