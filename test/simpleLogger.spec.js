@@ -1,18 +1,15 @@
-const assert = require('assert');
-const chalk = require('chalk');
+import assert from 'node:assert/strict';
+import chalk from 'chalk';
+import {importFresh} from './utils.js';
 
 describe('Simple logger', () => {
 	const write = process.stdout.write;
 	let output;
 	let logger;
 
-	before(() => {
-		delete require.cache[require.resolve('../src')];
-		delete process.env.LOG_FORMAT; // do not specify a log format
-		logger = require('../src');
-	});
-
-	beforeEach(() => {
+	beforeEach(async () => {
+		process.env.LOG_FORMAT = 'text';
+		logger = await importFresh('../src/index.js');
 		output = '';
 		process.stdout.write = str => {
 			output += str;

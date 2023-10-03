@@ -1,4 +1,4 @@
-const {ERROR} = require('./constants');
+import {ERROR} from './constants.js';
 
 const {TAG} = process.env;
 
@@ -14,7 +14,7 @@ function formatError(data) {
 	return data;
 }
 
-function log(level, message, context = {}, errorObject, fetchContext) {
+export default function log(level, message, context = {}, errorObject, fetchContext) {
 	let contextObject = context;
 
 	if (level === ERROR) {
@@ -37,5 +37,3 @@ function log(level, message, context = {}, errorObject, fetchContext) {
 
 	console.log(payload); // eslint-disable-line no-console
 }
-
-module.exports = log;

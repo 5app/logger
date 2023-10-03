@@ -1,19 +1,19 @@
-const assert = require('assert');
-const sinon = require('sinon');
+import assert from 'node:assert/strict';
+import sinon from 'sinon';
+import {importFresh} from './utils.js';
 
 describe('JSON logger', () => {
 	const write = process.stdout.write;
 	const TAG = '12345';
 	const now = new Date();
 	let clock;
-	let output;
 	let logger;
+	let output;
 
-	before(() => {
-		delete require.cache[require.resolve('../src')];
+	before(async () => {
 		process.env.TAG = TAG;
 		process.env.LOG_FORMAT = 'json';
-		logger = require('../src');
+		logger = await importFresh('../src/index.js');
 		clock = sinon.useFakeTimers(now.getTime());
 	});
 

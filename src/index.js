@@ -1,6 +1,6 @@
-const {DEBUG, INFO, WARN, ERROR} = require('./constants');
-const jsonLogger = require('./jsonLogger');
-const simpleLogger = require('./simpleLogger');
+import {DEBUG, INFO, WARN, ERROR} from './constants.js';
+import jsonLogger from './jsonLogger.js';
+import simpleLogger from './simpleLogger.js';
 
 const {LOG_FORMAT, LOGS_FORMAT, LOG_LEVEL, LOGS_LEVEL} = process.env;
 const enableJsonLogs = [LOGS_FORMAT, LOG_FORMAT].includes('json');
@@ -27,7 +27,7 @@ function logWithLevel(level) {
 	return (...parameters) => (shouldLog ? logger(level, ...parameters, fetchContext) : noLog);
 }
 
-module.exports = {
+export default {
 	[DEBUG]: logWithLevel(DEBUG),
 	[INFO]: logWithLevel(INFO),
 	[WARN]: logWithLevel(WARN),
