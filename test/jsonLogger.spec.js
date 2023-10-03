@@ -37,12 +37,15 @@ describe('JSON logger', () => {
 
 		logger.info(testMessage);
 
-		assert.strictEqual(output.trim(), JSON.stringify({
-			level: 'info',
-			message: testMessage,
-			tag: TAG,
-			timestamp: now.toISOString(),
-		}));
+		assert.strictEqual(
+			output.trim(),
+			JSON.stringify({
+				level: 'info',
+				message: testMessage,
+				tag: TAG,
+				timestamp: now.toISOString(),
+			})
+		);
 	});
 
 	it('provides the details of the error and its context', () => {
@@ -74,7 +77,7 @@ describe('JSON logger', () => {
 		const context = {id: 1, host: 'example.com'};
 
 		logger.addContext(() => ({
-			correlationId: 12345,
+			correlationId: 12_345,
 		}));
 
 		logger.error(humanReadableErrorMessage, context, error);
@@ -84,7 +87,7 @@ describe('JSON logger', () => {
 			message: humanReadableErrorMessage,
 			tag: TAG,
 			timestamp: now.toISOString(),
-			correlationId: 12345,
+			correlationId: 12_345,
 			...context,
 			error: originalErrorMessage,
 			statusCode: 404,

@@ -19,12 +19,13 @@ function addContext(contextFetchingFunction) {
 }
 
 const logger = enableJsonLogs ? jsonLogger : simpleLogger;
-const noLog = () => {}; // eslint-disable-line no-empty-function
+const noLog = () => {}; // eslint-disable-line
 
 function logWithLevel(level) {
 	const shouldLog = levels[level] >= levels[minimumLogLevel];
 
-	return (...parameters) => (shouldLog ? logger(level, ...parameters, fetchContext) : noLog);
+	return (...parameters) =>
+		shouldLog ? logger(level, ...parameters, fetchContext) : noLog;
 }
 
 export default {

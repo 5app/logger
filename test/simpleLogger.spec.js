@@ -25,6 +25,9 @@ describe('Simple logger', () => {
 
 		logger.info(testMessage);
 
-		assert.strictEqual(output.trim(), `${chalk.green('info:')} ${testMessage}`);
+		assert.strictEqual(
+			output.trim(),
+			`${chalk.green('info:')} ${testMessage}`
+		);
 	});
 });
