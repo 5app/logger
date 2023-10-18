@@ -1,4 +1,4 @@
-const {ERROR} = require('./constants');
+import {ERROR} from './constants.js';
 
 const {TAG} = process.env;
 
@@ -6,15 +6,23 @@ function formatError(data) {
 	if (data instanceof Error) {
 		return {
 			error: data.message,
-			stacktrace: data.stack ? data.stack.split('\n').map(line => line.trim()) : undefined,
-			statusCode: data.statusCode
+			stacktrace: data.stack
+				? data.stack.split('\n').map(line => line.trim())
+				: undefined,
+			statusCode: data.statusCode,
 		};
 	}
 
 	return data;
 }
 
-function log(level, message, context = {}, errorObject, fetchContext) {
+export default function log(
+	level,
+	message,
+	context = {},
+	errorObject,
+	fetchContext
+) {
 	let contextObject = context;
 
 	if (level === ERROR) {
@@ -24,7 +32,8 @@ function log(level, message, context = {}, errorObject, fetchContext) {
 		};
 	}
 
-	const dynamicContext = typeof fetchContext === 'function' ? fetchContext() : undefined;
+	const dynamicContext =
+		typeof fetchContext === 'function' ? fetchContext() : undefined;
 
 	const payload = JSON.stringify({
 		level,
@@ -37,5 +46,3 @@ function log(level, message, context = {}, errorObject, fetchContext) {
 
 	console.log(payload); // eslint-disable-line no-console
 }
-
-module.exports = log;

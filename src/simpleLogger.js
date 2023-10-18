@@ -1,6 +1,6 @@
-const util = require('util');
-const chalk = require('chalk');
-const {DEBUG, INFO, WARN, ERROR} = require('./constants');
+import util from 'node:util';
+import chalk from 'chalk';
+import {DEBUG, INFO, WARN, ERROR} from './constants.js';
 
 const formatting = {
 	[ERROR]: {
@@ -18,16 +18,16 @@ const formatting = {
 	},
 };
 
-function log(level, message, context = '', errorObject) {
+export default function log(level, message, context = '', errorObject) {
 	const {color, colorAll} = formatting[level];
 	const contextObjects = [context, errorObject].filter(Boolean); // Ignore undefined context objects
 
 	if (colorAll) {
-		console.log(color(util.format(`${level}: ${message}`, ...contextObjects))); // eslint-disable-line no-console
-	}
-	else {
+		// eslint-disable-next-line no-console
+		console.log(
+			color(util.format(`${level}: ${message}`, ...contextObjects))
+		);
+	} else {
 		console.log(`${color(`${level}:`)} ${message}`, ...contextObjects); // eslint-disable-line no-console
 	}
 }
-
-module.exports = log;

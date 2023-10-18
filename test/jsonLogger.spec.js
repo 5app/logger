@@ -1,19 +1,19 @@
-const assert = require('assert');
-const sinon = require('sinon');
+import assert from 'node:assert/strict';
+import sinon from 'sinon';
+import {importFresh} from './utils.js';
 
 describe('JSON logger', () => {
 	const write = process.stdout.write;
 	const TAG = '12345';
 	const now = new Date();
 	let clock;
-	let output;
 	let logger;
+	let output;
 
-	before(() => {
-		delete require.cache[require.resolve('../src')];
+	before(async () => {
 		process.env.TAG = TAG;
 		process.env.LOG_FORMAT = 'json';
-		logger = require('../src');
+		logger = await importFresh('../src/index.js');
 		clock = sinon.useFakeTimers(now.getTime());
 	});
 
@@ -37,12 +37,15 @@ describe('JSON logger', () => {
 
 		logger.info(testMessage);
 
-		assert.strictEqual(output.trim(), JSON.stringify({
-			level: 'info',
-			message: testMessage,
-			tag: TAG,
-			timestamp: now.toISOString(),
-		}));
+		assert.strictEqual(
+			output.trim(),
+			JSON.stringify({
+				level: 'info',
+				message: testMessage,
+				tag: TAG,
+				timestamp: now.toISOString(),
+			})
+		);
 	});
 
 	it('provides the details of the error and its context', () => {
@@ -74,7 +77,7 @@ describe('JSON logger', () => {
 		const context = {id: 1, host: 'example.com'};
 
 		logger.addContext(() => ({
-			correlationId: 12345,
+			correlationId: 12_345,
 		}));
 
 		logger.error(humanReadableErrorMessage, context, error);
@@ -84,7 +87,7 @@ describe('JSON logger', () => {
 			message: humanReadableErrorMessage,
 			tag: TAG,
 			timestamp: now.toISOString(),
-			correlationId: 12345,
+			correlationId: 12_345,
 			...context,
 			error: originalErrorMessage,
 			statusCode: 404,
