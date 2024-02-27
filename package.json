@@ -27,8 +27,8 @@
   "homepage": "https://github.com/5app/logger#readme",
   "devDependencies": {
     "@5app/semantic-release-config": "^1.0.0",
-    "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "eslint": "^8.8.0",
     "eslint-config-5app": "^0.16.2",
     "eslint-plugin-promise": "^6.0.0",
