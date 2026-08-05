@@ -39,6 +39,22 @@ logger.info('An event happened', {a: 1, b: Date.now(), c: 'some string'});
 logger.debug('A minor operation', {a: 1, b: Date.now(), c: 'some string'});
 ```
 
+## Slack alerts
+
+`logger.slackAlert([level], message, ...)` logs like the regular level functions above, but prepends `slackAlert ` to the message and adds a random `slackAlertId` (via [`crypto.randomUUID()`](https://nodejs.org/api/crypto.html#cryptorandomuuidoptions)) to the logged context, generating one even if no context is provided. `level` is optional and defaults to `'error'`; when provided it must be one of `'debug'`, `'info'`, `'warn'`, or `'error'`. Any remaining arguments are forwarded as-is to `logger.<level>`, so they follow that level's own signature (e.g. `context` and `errorObject` for `'error'`, just `context` for the others).
+
+This is intended for hooking up a log-shipping pipeline (e.g. a log processor that watches for the `slackAlert ` prefix) to post the message to Slack, using `slackAlertId` to correlate the Slack post back to the original log line, while still logging it at the given severity.
+
+```javascript
+logger.slackAlert('Payment provider is down', error); // level defaults to "error"
+logger.slackAlert('warn', 'Queue depth is high', {depth: 1200}); // context is merged with {slackAlertId: '...'}
+logger.slackAlert('warn', 'Queue depth is high'); // context defaults to {slackAlertId: '...'}
+logger.slackAlert('error', 'Payment provider is down', {provider: 'stripe'}, error);
+logger.slackAlert('error', 'Payment provider is down', error); // the (message, errorObject) shorthand also works; slackAlertId is added alongside the error details
+```
+
+Note: because `level` is detected by checking if the first argument is a known level string, passing an unrecognised level (e.g. a typo like `'eror'`) is not an error — it's silently read as `message` instead, with `level` defaulting to `'error'`.
+
 ## Fetching context dynamically
 
 In addition to providing a context object, you can also use `logger.addContext` to provide a function which will be called on every log to get a context object.
