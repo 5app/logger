@@ -39,7 +39,7 @@ function slackAlert(levelOrMessage, ...rest) {
 	// `level` is optional and defaults to "error". If the first argument isn't a known level,
 	// treat it as `message` instead (so an unrecognised level string is silently read as the
 	// message rather than throwing).
-	const hasLevel = Boolean(logFunctions[levelOrMessage]);
+	const hasLevel = Object.prototype.hasOwnProperty.call(logFunctions, levelOrMessage);
 	const level = hasLevel ? levelOrMessage : ERROR;
 	const [message, context, ...restParameters] = hasLevel ? rest : [levelOrMessage, ...rest];
 

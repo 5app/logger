@@ -3,6 +3,8 @@ const chalk = require('chalk');
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const SLACK_ALERT_ID_CAPTURE_REGEX = / \{ slackAlertId: '([0-9a-f-]+)' \}$/i;
+// eslint-disable-next-line no-control-regex
+const ANSI_REGEX = /\x1b\[[0-9;]*m/g;
 
 const slackAlertExpectations = {
 	debug: message => chalk.grey(`debug: ${message}`),
@@ -47,13 +49,13 @@ describe('Simple logger', () => {
 
 			logger.slackAlert(level, testMessage);
 
-			const trimmedOutput = output.trim();
+			const trimmedOutput = output.trim().replace(ANSI_REGEX, '');
 			const [, slackAlertId] = trimmedOutput.match(SLACK_ALERT_ID_CAPTURE_REGEX) || [];
 
 			assert.match(slackAlertId, UUID_REGEX);
 			assert.strictEqual(
 				trimmedOutput.replace(SLACK_ALERT_ID_CAPTURE_REGEX, ''),
-				expected(`slackAlert ${testMessage}`)
+				expected(`slackAlert ${testMessage}`).replace(ANSI_REGEX, '')
 			);
 		});
 	});
