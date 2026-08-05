@@ -1,3 +1,15 @@
+# [2.4.0](https://github.com/5app/logger/compare/v2.3.1...v2.4.0) (2026-08-05)
+
+
+### Bug Fixes
+
+* pr feedback ([777860e](https://github.com/5app/logger/commit/777860e83fefa3ef52e8edec7ddd39ef761a943d))
+
+
+### Features
+
+* add slackAlert logger function ([43a045b](https://github.com/5app/logger/commit/43a045b9f71d771d22e99776747e9f3171b2348f))
+
 ## [2.3.1](https://github.com/5app/logger/compare/v2.3.0...v2.3.1) (2022-09-15)
 
 
