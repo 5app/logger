@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
     node: circleci/node@5.0.3
-    release: fiveapp/release@0
+    release: https://raw.githubusercontent.com/5app/release-orb/refs/heads/noissue-npm-trusted-publishing/orb.yml
 
 executors:
     default:
